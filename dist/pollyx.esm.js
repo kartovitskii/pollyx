@@ -1260,7 +1260,7 @@ var Pollyx = /*#__PURE__*/function () {
     }
   }]);
 }();
-_defineProperty(Pollyx, "version", '1.0.1');
+_defineProperty(Pollyx, "version", '1.0.2');
 _defineProperty(Pollyx, "instances", new Map());
 _defineProperty(Pollyx, "defaultOptions", {
   interval: 60000,
