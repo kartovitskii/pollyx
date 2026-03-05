@@ -4,7 +4,7 @@ import { RetryStrategy } from './RetryStrategy';
 import { Logger } from '../utils/logger';
 
 export class Pollyx {
-    static version = '1.0.0';
+    static version = '1.0.1';
     static instances = new Map();
     static defaultOptions = {
         interval: 60000,

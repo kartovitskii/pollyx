@@ -1,7 +1,7 @@
 {
   "type": "module",
   "name": "pollyx",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Modern polling library with WebSocket fallback, diff updates, and framework adapters",
   "main": "dist/pollyx.cjs.js",
   "module": "dist/pollyx.esm.js",

@@ -4,7 +4,7 @@
 
 [![npm version](https://img.shields.io/npm/v/pollyx.svg)](https://www.npmjs.com/package/pollyx)
 [![downloads](https://img.shields.io/npm/dm/pollyx.svg)](https://www.npmjs.com/package/pollyx)
-[![license](https://img.shields.io/npm/l/pollyx)](https://github.com/kartovitskii/pollyx/blob/main/LICENSE)
+[![license](https://img.shields.io/npm/l/pollyx)](https://github.com/kartovitskii/pollyx/blob/master/LICENSE)
 
 ## 💥 Сценарии использования 
 #### E-commerce и маркетплейсы
