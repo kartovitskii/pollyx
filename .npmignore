@@ -1,0 +1,16 @@
+src/
+examples/
+tests/
+.vscode/
+.idea/
+.git/
+.github/
+*.log
+.env
+.DS_Store
+Thumbs.db
+rollup.config.js
+jest.config.js
+.eslintrc.js
+.prettierrc
+.editorconfig

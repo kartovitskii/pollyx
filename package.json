@@ -1,0 +1,71 @@
+{
+  "type": "module",
+  "name": "pollyx",
+  "version": "1.0.0",
+  "description": "Modern polling library with WebSocket fallback, diff updates, and framework adapters",
+  "main": "dist/pollyx.cjs.js",
+  "module": "dist/pollyx.esm.js",
+  "browser": "dist/pollyx.umd.js",
+  "scripts": {
+    "build": "rollup -c",
+    "dev": "rollup -c -w",
+    "lint": "eslint src",
+    "format": "prettier --write \"src/**/*.js\"",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "polling",
+    "websocket",
+    "realtime",
+    "diff",
+    "react",
+    "vue"
+  ],
+  "author": "Il'ia Kartovitskii",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kartovitskii/pollyx.git"
+  },
+  "bugs": {
+    "url": "https://github.com/kartovitskii/pollyx/issues"
+  },
+  "homepage": "https://github.com/kartovitskii/pollyx#readme",
+  "dependencies": {
+    "diff-match-patch": "^1.0.5"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0",
+    "vue": "^3.0.0"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    },
+    "vue": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@babel/core": "^7.26.10",
+    "@babel/preset-env": "^7.26.9",
+    "@babel/preset-react": "^7.26.3",
+    "@rollup/plugin-babel": "^6.0.4",
+    "@rollup/plugin-commonjs": "^28.0.3",
+    "@rollup/plugin-json": "^6.1.0",
+    "@rollup/plugin-node-resolve": "^16.0.1",
+    "@rollup/plugin-replace": "^6.0.2",
+    "@rollup/plugin-terser": "^0.4.4",
+    "eslint": "^9.22.0",
+    "eslint-config-prettier": "^10.1.1",
+    "eslint-plugin-react": "^7.37.4",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "prettier": "^3.5.3",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "rollup": "^4.35.0",
+    "rollup-plugin-filesize": "^10.0.0",
+    "typescript": "^5.8.2",
+    "vue": "^3.5.13"
+  }
+}
