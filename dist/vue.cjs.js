@@ -1,5 +1,7 @@
 'use strict';
 
+var vue = require('vue');
+
 function _arrayLikeToArray(r, a) {
   (null == a || a > r.length) && (a = r.length);
   for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e];
@@ -1295,9 +1297,58 @@ _defineProperty(Pollyx, "defaultOptions", {
   onStatusChange: null
 });
 
-exports.DiffEngine = DiffEngine;
-exports.Logger = Logger;
-exports.Pollyx = Pollyx;
-exports.RetryStrategy = RetryStrategy;
-exports.WebSocketManager = WebSocketManager;
-//# sourceMappingURL=pollyx.cjs.js.map
+function usePollingVue() {
+  var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var data = vue.ref(null);
+  var error = vue.ref(null);
+  var isFetching = vue.ref(false);
+  var status = vue.ref('idle');
+  var pollingInstance = null;
+  var elementRef = vue.ref(null);
+  vue.onMounted(function () {
+    if (!elementRef.value) {
+      elementRef.value = document.createElement('div');
+    }
+    pollingInstance = new Pollyx(elementRef.value, _objectSpread2(_objectSpread2({}, options), {}, {
+      onUpdate: function onUpdate(html, instance) {
+        data.value = html;
+        if (options.onUpdate) options.onUpdate(html, instance);
+      },
+      onError: function onError(err, instance) {
+        error.value = err;
+        if (options.onError) options.onError(err, instance);
+      },
+      onStatusChange: function onStatusChange(newStatus, data, instance) {
+        status.value = newStatus;
+        isFetching.value = newStatus === 'fetching';
+        if (options.onStatusChange) options.onStatusChange(newStatus, data, instance);
+      }
+    }));
+  });
+  vue.onUnmounted(function () {
+    if (pollingInstance) {
+      pollingInstance.destroy();
+    }
+  });
+  return {
+    data: vue.readonly(data),
+    error: vue.readonly(error),
+    isFetching: vue.readonly(isFetching),
+    status: vue.readonly(status),
+    start: function start() {
+      var _pollingInstance;
+      return (_pollingInstance = pollingInstance) === null || _pollingInstance === void 0 ? void 0 : _pollingInstance.start();
+    },
+    stop: function stop() {
+      var _pollingInstance2;
+      return (_pollingInstance2 = pollingInstance) === null || _pollingInstance2 === void 0 ? void 0 : _pollingInstance2.stop();
+    },
+    refetch: function refetch() {
+      var _pollingInstance3;
+      return (_pollingInstance3 = pollingInstance) === null || _pollingInstance3 === void 0 ? void 0 : _pollingInstance3.fetch(true);
+    }
+  };
+}
+
+exports.usePollingVue = usePollingVue;
+//# sourceMappingURL=vue.cjs.js.map

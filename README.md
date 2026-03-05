@@ -44,42 +44,6 @@ yarn add pollyx
 # или
 pnpm add pollyx
 ```
-```html
-<!DOCTYPE html>
-<html>
-<head>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/diff_match_patch/20121119/diff_match_patch.js"></script>
-    <script src="dist/pollyx.umd.js"></script>
-</head>
-<body>
-<div id="polling-container">
-    <!-- Сюда будут приходить обновления -->
-    <div id="content">Загрузка...</div>
-</div>
-
-<script>
-    // Pollyx доступен глобально как window.Pollyx
-    const { Pollyx } = window.Pollyx;
-
-    // Создаем элемент для поллинга
-    const container = document.getElementById('polling-container');
-
-    // Инициализируем поллинг
-    const polling = new Pollyx(container, {
-        interval: 5000,
-        url: '/api/updates',
-        onUpdate: (html) => {
-            console.log('Обновлено!');
-        }
-    });
-
-    // Управление
-    // polling.start();
-    // polling.stop();
-</script>
-</body>
-</html>
-```
 
 ## 🚀 Быстрый старт
 
@@ -138,6 +102,36 @@ function MyComponent() {
         interval: 5000
     });
 </script>
+```
+
+### 🌐 Использование в браузере через CDN
+
+```html
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/diff_match_patch/20121119/diff_match_patch.js"></script>
+        <script src="https://unpkg.com/pollyx@1.0.2/dist/pollyx.umd.js"></script>
+    </head>
+    <body>
+        <div id="polling-container">
+            <div id="content">Загрузка...</div>
+        </div>
+        
+        <script>
+            const { Pollyx } = window.Pollyx;
+        
+            const container = document.getElementById('polling-container');
+            const polling = new Pollyx(container, {
+                interval: 5000,
+                url: '/api/updates',
+                onUpdate: (html) => {
+                    console.log('Обновлено!');
+                }
+            });
+        </script>
+    </body>
+</html>
 ```
 
 ## ⚙️ Конфигурация

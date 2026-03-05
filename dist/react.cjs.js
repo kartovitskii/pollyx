@@ -1,5 +1,7 @@
 'use strict';
 
+var react = require('react');
+
 function _arrayLikeToArray(r, a) {
   (null == a || a > r.length) && (a = r.length);
   for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e];
@@ -1295,9 +1297,70 @@ _defineProperty(Pollyx, "defaultOptions", {
   onStatusChange: null
 });
 
-exports.DiffEngine = DiffEngine;
-exports.Logger = Logger;
-exports.Pollyx = Pollyx;
-exports.RetryStrategy = RetryStrategy;
-exports.WebSocketManager = WebSocketManager;
-//# sourceMappingURL=pollyx.cjs.js.map
+function usePolling() {
+  var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var _useState = react.useState(null),
+    _useState2 = _slicedToArray(_useState, 2),
+    data = _useState2[0],
+    setData = _useState2[1];
+  var _useState3 = react.useState(null),
+    _useState4 = _slicedToArray(_useState3, 2),
+    error = _useState4[0],
+    setError = _useState4[1];
+  var _useState5 = react.useState(false),
+    _useState6 = _slicedToArray(_useState5, 2),
+    isFetching = _useState6[0],
+    setIsFetching = _useState6[1];
+  var _useState7 = react.useState('idle'),
+    _useState8 = _slicedToArray(_useState7, 2),
+    status = _useState8[0],
+    setStatus = _useState8[1];
+  var elementRef = react.useRef(null);
+  var pollingRef = react.useRef(null);
+  react.useEffect(function () {
+    if (!elementRef.current) {
+      elementRef.current = document.createElement('div');
+    }
+    pollingRef.current = new Pollyx(elementRef.current, _objectSpread2(_objectSpread2({}, options), {}, {
+      onUpdate: function onUpdate(html, instance) {
+        setData(html);
+        if (options.onUpdate) options.onUpdate(html, instance);
+      },
+      onError: function onError(err, instance) {
+        setError(err);
+        if (options.onError) options.onError(err, instance);
+      },
+      onStatusChange: function onStatusChange(newStatus, data, instance) {
+        setStatus(newStatus);
+        setIsFetching(newStatus === 'fetching');
+        if (options.onStatusChange) options.onStatusChange(newStatus, data, instance);
+      }
+    }));
+    return function () {
+      if (pollingRef.current) {
+        pollingRef.current.destroy();
+      }
+    };
+  }, [options.url, options.interval, JSON.stringify(options.retry)]);
+  return {
+    data: data,
+    error: error,
+    isFetching: isFetching,
+    status: status,
+    start: function start() {
+      var _pollingRef$current;
+      return (_pollingRef$current = pollingRef.current) === null || _pollingRef$current === void 0 ? void 0 : _pollingRef$current.start();
+    },
+    stop: function stop() {
+      var _pollingRef$current2;
+      return (_pollingRef$current2 = pollingRef.current) === null || _pollingRef$current2 === void 0 ? void 0 : _pollingRef$current2.stop();
+    },
+    refetch: function refetch() {
+      var _pollingRef$current3;
+      return (_pollingRef$current3 = pollingRef.current) === null || _pollingRef$current3 === void 0 ? void 0 : _pollingRef$current3.fetch(true);
+    }
+  };
+}
+
+exports.usePolling = usePolling;
+//# sourceMappingURL=react.cjs.js.map

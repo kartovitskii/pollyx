@@ -6,6 +6,21 @@
   "main": "dist/pollyx.cjs.js",
   "module": "dist/pollyx.esm.js",
   "browser": "dist/pollyx.umd.js",
+  "exports": {
+    ".": {
+      "import": "./dist/pollyx.esm.js",
+      "require": "./dist/pollyx.cjs.js",
+      "browser": "./dist/pollyx.umd.js"
+    },
+    "./react": {
+      "import": "./dist/react.js",
+      "require": "./dist/react.cjs.js"
+    },
+    "./vue": {
+      "import": "./dist/vue.js",
+      "require": "./dist/vue.cjs.js"
+    }
+  },
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w",
