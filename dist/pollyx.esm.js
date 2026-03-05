@@ -1263,7 +1263,7 @@ var Pollyx = /*#__PURE__*/function () {
     }
   }]);
 }();
-_defineProperty(Pollyx, "version", '1.0.0');
+_defineProperty(Pollyx, "version", '1.0.1');
 _defineProperty(Pollyx, "instances", new Map());
 _defineProperty(Pollyx, "defaultOptions", {
   interval: 60000,
@@ -1414,7 +1414,7 @@ function usePollingVue() {
   };
 }
 
-var version = "1.0.0";
+var version = "1.0.1";
 
 // Core
 
