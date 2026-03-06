@@ -3,7 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pollyx — Полная документация API</title>
+    <title>Pollyx — документация</title>
+    <meta name="description" content="Легковесная JavaScript-библиотека для организации поллинга с поддержкой WebSocket и интеллектуальными diff-обновлениями. В отличие от классического подхода, где каждый запрос перезагружает весь блок данных, Pollyx анализирует изменения и применяет только их — это экономит трафик, сохраняет фокус ввода и обеспечивает плавность интерфейса. Библиотека идеально подходит для финансовых дашбордов, интернет-магазинов и любых проектов, где важна актуальность данных без потери производительности. С готовыми адаптерами для React и Vue 3 вы можете внедрить умный поллинг в существующий проект за минуты.">
+    <meta name="keywords" content="поллинг, polling, библиотека поллинга, websocket fallback, diff updates, react polling, vue polling, javascript polling, real-time updates, long polling альтернатива, умный поллинг, pollyx">
+    <meta name="author" content="Il'ia Kartovitskii">
+    <meta name="copyright" content="Pollyx">
     <style>
         * {
             margin: 0;
@@ -263,6 +267,9 @@
             <span class="badge primary">v1.0.4</span>
             <span class="badge">React / Vue 3</span>
             <span class="badge">20.2 kB gzip</span>
+        </div>
+        <div style="font-size: 14px; color: #e2e8f0; margin-bottom: 15px;">
+            <b>Pollyx</b> — это легковесная JavaScript-библиотека для организации поллинга с поддержкой WebSocket и интеллектуальными diff-обновлениями. В отличие от классического подхода, где каждый запрос перезагружает весь блок данных, Pollyx анализирует изменения и применяет только их — это экономит трафик, сохраняет фокус ввода и обеспечивает плавность интерфейса. Библиотека идеально подходит для финансовых дашбордов, интернет-магазинов и любых проектов, где важна актуальность данных без потери производительности. С готовыми адаптерами для React и Vue 3 вы можете внедрить умный поллинг в существующий проект за минуты.
         </div>
         <div>
             <a style="font-size: 14px; color: #e2e8f0;" href="https://github.com/kartovitskii/pollyx">https://github.com/kartovitskii/pollyx</a>
@@ -840,7 +847,7 @@ polling.registerHandler('logger', (newHtml, oldHtml, instance) => {
         <div class="method-signature">usePollingVue(options: UsePollingOptions): UsePollingVueResult</div>
         <p>Возвращает те же поля, что и React-версия, но в виде ref-объектов (для реактивности Vue).</p>
 
-        <h2 id="cdn">🌐 Подключение через CDN (правильный пример)</h2>
+        <h2 id="cdn">🌐 Подключение через CDN</h2>
         <p>Важно! Для работы diff-обновлений необходимо подключать <code>diff_match_patch</code> до библиотеки Pollyx.
         </p>
 
