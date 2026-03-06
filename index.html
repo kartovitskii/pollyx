@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pollyx — Полная документация API</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: #f8fafc;
+            color: #0f172a;
+            line-height: 1.6;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 2rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #0f172a, #1e293b);
+            color: white;
+            padding: 3rem 4rem;
+        }
+
+        .header h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(120deg, #e2e8f0, #38bdf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header .sub {
+            font-size: 1.3rem;
+            color: #94a3b8;
+            max-width: 800px;
+        }
+
+        .badge {
+            display: inline-block;
+            background: #334155;
+            padding: 0.3rem 1rem;
+            border-radius: 999px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #cbd5e1;
+            margin-right: 0.75rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .badge.primary {
+            background: #0284c7;
+            color: white;
+        }
+
+        .badge.warning {
+            background: #b45309;
+            color: white;
+        }
+
+        .content {
+            padding: 3rem 4rem;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin: 3rem 0 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 3px solid #e2e8f0;
+            scroll-margin-top: 1rem;
+        }
+
+        h2:first-of-type {
+            margin-top: 0;
+        }
+
+        h3 {
+            font-size: 1.6rem;
+            font-weight: 600;
+            margin: 2rem 0 1rem;
+            color: #0f172a;
+            background: #f1f5f9;
+            padding: 0.5rem 1rem;
+            border-radius: 0.75rem;
+        }
+
+        h4 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin: 1.5rem 0 0.5rem;
+            color: #334155;
+        }
+
+        p {
+            margin-bottom: 1.2rem;
+        }
+
+        ul, ol {
+            margin: 0.8rem 0 1.5rem 1.8rem;
+        }
+
+        li {
+            margin-bottom: 0.3rem;
+        }
+
+        a {
+            color: #0284c7;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        pre {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 1.2rem 1.6rem;
+            border-radius: 1rem;
+            overflow-x: auto;
+            font-family: 'JetBrains Mono', 'Fira Code', monospace;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin: 1.5rem 0;
+            box-shadow: inset 0 0 0 1px #334155;
+        }
+
+        code {
+            background: #eef2f6;
+            padding: 0.2rem 0.5rem;
+            border-radius: 0.5rem;
+            font-family: 'JetBrains Mono', 'Fira Code', monospace;
+            font-size: 0.9em;
+            color: #0f172a;
+        }
+
+        pre code {
+            background: transparent;
+            padding: 0;
+            color: inherit;
+            font-size: 0.9rem;
+        }
+
+        .method-signature {
+            background: #f1f5f9;
+            padding: 1rem 1.5rem;
+            border-radius: 1rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 500;
+            border-left: 5px solid #0284c7;
+            margin: 1rem 0;
+        }
+
+        .param-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0 2rem;
+            font-size: 0.95rem;
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .param-table th {
+            background: #1e293b;
+            color: white;
+            font-weight: 600;
+            padding: 0.75rem 1rem;
+            text-align: left;
+        }
+
+        .param-table td {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid #e2e8f0;
+            background: white;
+        }
+
+        .param-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .param-name {
+            font-weight: 600;
+            color: #0f172a;
+            font-family: monospace;
+        }
+
+        .param-type {
+            color: #0284c7;
+            font-family: monospace;
+            font-size: 0.9rem;
+        }
+
+        .param-required {
+            color: #dc2626;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .note {
+            background: #f0f9ff;
+            border-left: 5px solid #0284c7;
+            padding: 1.2rem 1.8rem;
+            border-radius: 1rem;
+            margin: 2rem 0;
+        }
+
+        .note.warning {
+            background: #fffbeb;
+            border-left-color: #b45309;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        @media (max-width: 900px) {
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        hr {
+            border: none;
+            border-top: 2px dashed #cbd5e1;
+            margin: 3rem 0;
+        }
+
+        .footer {
+            background: #f1f5f9;
+            padding: 2rem 4rem;
+            text-align: center;
+            color: #475569;
+            border-top: 1px solid #cbd5e1;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>Pollyx</h1>
+        <div>
+            <span class="badge primary">v1.0.4</span>
+            <span class="badge">React / Vue 3</span>
+            <span class="badge">20.2 kB gzip</span>
+        </div>
+    </div>
+
+    <div class="content">
+        <div style="background: #f1f5f9; padding: 1.5rem; border-radius: 1rem; margin-bottom: 2rem;">
+            <div style="display: flex; flex-wrap: wrap; gap: 1rem;">
+                <a href="#constructor">Конструктор</a>
+                <a href="#instance-methods">Методы экземпляра</a>
+                <a href="#static-methods">Статические методы</a>
+                <a href="#retry-strategy">RetryStrategy</a>
+                <a href="#events">События</a>
+                <a href="#handlers">Глобальные обработчики</a>
+                <a href="#adapters">Адаптеры</a>
+                <a href="#cdn">CDN подключение</a>
+            </div>
+        </div>
+
+        <h2 id="constructor">🔧 Конструктор</h2>
+        <div class="method-signature">
+            new Pollyx(element: HTMLElement | string, options: PollyxOptions): PollyxInstance
+        </div>
+
+        <h4>Параметры конструктора</h4>
+        <table class="param-table">
+            <thead>
+            <tr>
+                <th>Параметр</th>
+                <th>Тип</th>
+                <th>Обязательный</th>
+                <th>Описание</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="param-name">element</td>
+                <td class="param-type">HTMLElement | string</td>
+                <td class="param-required">да</td>
+                <td>DOM-элемент или CSS-селектор, содержимое которого будет обновляться</td>
+            </tr>
+            <tr>
+                <td class="param-name">options</td>
+                <td class="param-type">PollyxOptions</td>
+                <td class="param-required">да</td>
+                <td>Объект конфигурации (см. таблицу ниже)</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <h4>Интерфейс PollyxOptions</h4>
+        <table class="param-table">
+            <thead>
+            <tr>
+                <th>Поле</th>
+                <th>Тип</th>
+                <th>По умолчанию</th>
+                <th>Описание</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>interval</td>
+                <td>number</td>
+                <td>60000</td>
+                <td>Интервал опроса в миллисекундах</td>
+            </tr>
+            <tr>
+                <td>url</td>
+                <td>string</td>
+                <td>—</td>
+                <td>URL для запросов (обязательное поле)</td>
+            </tr>
+            <tr>
+                <td>method</td>
+                <td>'GET' | 'POST' | 'PUT' | 'PATCH'</td>
+                <td>'GET'</td>
+                <td>HTTP метод</td>
+            </tr>
+            <tr>
+                <td>headers</td>
+                <td>Record&lt;string, string&gt;</td>
+                <td>{ 'X-Requested-With': 'XMLHttpRequest', 'Accept': 'text/html' }</td>
+                <td>Заголовки запроса</td>
+            </tr>
+            <tr>
+                <td>body</td>
+                <td>Document | XMLHttpRequestBodyInit | null</td>
+                <td>null</td>
+                <td>Тело запроса (для POST/PUT)</td>
+            </tr>
+            <tr>
+                <td>retry</td>
+                <td>RetryOptions</td>
+                <td>{ maxAttempts: 3, baseDelay: 1000, maxDelay: 30000, factor: 2, jitter: true }</td>
+                <td>Настройки повторных попыток</td>
+            </tr>
+            <tr>
+                <td>websocket</td>
+                <td>WebSocketOptions</td>
+                <td>{ enabled: false, url: '', fallbackAfter: 3, reconnectInterval: 5000 }</td>
+                <td>Настройки WebSocket</td>
+            </tr>
+            <tr>
+                <td>deduplicate</td>
+                <td>boolean</td>
+                <td>true</td>
+                <td>Дедупликация одновременных запросов</td>
+            </tr>
+            <tr>
+                <td>diffUpdates</td>
+                <td>boolean</td>
+                <td>true</td>
+                <td>Использовать diff-match-patch для обновлений</td>
+            </tr>
+            <tr>
+                <td>preserveFocus</td>
+                <td>boolean</td>
+                <td>true</td>
+                <td>Сохранять фокус и выделение при обновлениях</td>
+            </tr>
+            <tr>
+                <td>autoStart</td>
+                <td>boolean</td>
+                <td>true</td>
+                <td>Автоматический запуск после создания</td>
+            </tr>
+            <tr>
+                <td>debug</td>
+                <td>boolean</td>
+                <td>false</td>
+                <td>Режим отладки (логи в консоль)</td>
+            </tr>
+            <tr>
+                <td>onUpdate</td>
+                <td>(html: string, instance: PollyxInstance) => void</td>
+                <td>undefined</td>
+                <td>Колбэк после успешного обновления</td>
+            </tr>
+            <tr>
+                <td>onError</td>
+                <td>(error: Error, instance: PollyxInstance) => void</td>
+                <td>undefined</td>
+                <td>Колбэк при ошибке</td>
+            </tr>
+            <tr>
+                <td>onStatusChange</td>
+                <td>(status: StatusType, data: any, instance: PollyxInstance) => void</td>
+                <td>undefined</td>
+                <td>Колбэк при смене статуса</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <h4>Интерфейс RetryOptions</h4>
+        <table class="param-table">
+            <tr>
+                <td>maxAttempts</td>
+                <td>number</td>
+                <td>3</td>
+                <td>Максимальное количество попыток</td>
+            </tr>
+            <tr>
+                <td>baseDelay</td>
+                <td>number</td>
+                <td>1000</td>
+                <td>Базовая задержка (мс)</td>
+            </tr>
+            <tr>
+                <td>maxDelay</td>
+                <td>number</td>
+                <td>30000</td>
+                <td>Максимальная задержка (мс)</td>
+            </tr>
+            <tr>
+                <td>factor</td>
+                <td>number</td>
+                <td>2</td>
+                <td>Множитель задержки (exponential backoff)</td>
+            </tr>
+            <tr>
+                <td>jitter</td>
+                <td>boolean</td>
+                <td>true</td>
+                <td>Случайная вариация задержки</td>
+            </tr>
+        </table>
+
+        <h4>Интерфейс WebSocketOptions</h4>
+        <table class="param-table">
+            <tr>
+                <td>enabled</td>
+                <td>boolean</td>
+                <td>false</td>
+                <td>Включить WebSocket</td>
+            </tr>
+            <tr>
+                <td>url</td>
+                <td>string</td>
+                <td>''</td>
+                <td>WebSocket URL (wss:// или ws://)</td>
+            </tr>
+            <tr>
+                <td>fallbackAfter</td>
+                <td>number</td>
+                <td>3</td>
+                <td>Количество ошибок WS до переключения на polling</td>
+            </tr>
+            <tr>
+                <td>reconnectInterval</td>
+                <td>number</td>
+                <td>5000</td>
+                <td>Интервал переподключения (мс)</td>
+            </tr>
+        </table>
+
+        <h2 id="instance-methods">📌 Методы экземпляра</h2>
+
+        <h3>Управление жизненным циклом</h3>
+
+        <div class="method-signature">start(): void</div>
+        <p>Запускает поллинг. Если уже запущен — ничего не делает. Генерирует событие <code>started</code>.</p>
+
+        <div class="method-signature">stop(): void</div>
+        <p>Останавливает поллинг. Генерирует событие <code>stopped</code>.</p>
+
+        <div class="method-signature">destroy(): void</div>
+        <p>Полностью уничтожает инстанс: останавливает все таймеры, закрывает WebSocket, удаляет обработчики событий.
+            Инстанс удаляется из глобального реестра.</p>
+
+        <div class="method-signature">refetch(): Promise&lt;string&gt;</div>
+        <p>Принудительно выполняет запрос немедленно, игнорируя текущий интервал. Возвращает Promise с полученным
+            HTML.</p>
+
+        <h3>Настройка и состояние</h3>
+
+        <div class="method-signature">updateOptions(newOptions: Partial&lt;PollyxOptions&gt;): void</div>
+        <p>Обновляет опции инстанса. Может быть вызван в любой момент. Особенности:</p>
+        <ul>
+            <li>Изменение <code>interval</code> перезапускает таймер</li>
+            <li>Изменение <code>websocket.url</code> переподключает WebSocket</li>
+            <li>Остальные опции применяются мгновенно</li>
+        </ul>
+
+        <div class="method-signature">getState(): PollyxState</div>
+        <p>Возвращает текущее состояние инстанса:</p>
+        <pre><code>interface PollyxState {
+    status: 'idle' | 'fetching' | 'success' | 'error' | 'stopped' | 'ws_connected' | 'ws_fallback';
+    lastHtml: string | null;           // последний полученный HTML
+    lastFetchTime: number | null;      // timestamp последнего запроса
+    errorCount: number;                // счётчик ошибок подряд
+    retryState: RetryState;            // состояние RetryStrategy
+    wsConnected: boolean;              // флаг подключения WebSocket
+}</code></pre>
+
+        <div class="method-signature">isActive(): boolean</div>
+        <p>Возвращает <code>true</code>, если инстанс запущен и не уничтожен.</p>
+
+        <h3>Глобальные обработчики</h3>
+
+        <div class="method-signature">registerHandler(name: string, handler: GlobalHandler): void</div>
+        <p>Регистрирует обработчик для элементов с атрибутом <code>data-pollyx-handler="{name}"</code> внутри текущего
+            элемента.</p>
+        <pre><code>type GlobalHandler = (
+    newHtml: string,
+    oldHtml: string,
+    instance: PollyxInstance,
+    diff?: PatchObject[]  // только если diffUpdates: true
+) => void;</code></pre>
+
+        <div class="method-signature">unregisterHandler(name: string): boolean</div>
+        <p>Удаляет зарегистрированный обработчик. Возвращает <code>true</code>, если обработчик существовал.</p>
+
+        <h3>Управление WebSocket</h3>
+
+        <div class="method-signature">connectWebSocket(): void</div>
+        <p>Принудительно инициирует подключение WebSocket (если <code>websocket.enabled === true</code>).</p>
+
+        <div class="method-signature">disconnectWebSocket(): void</div>
+        <p>Закрывает WebSocket-соединение.</p>
+
+        <div class="method-signature">fallbackToPolling(reason?: string): void</div>
+        <p>Принудительно переключает инстанс в режим polling (отключает WebSocket). Генерирует событие
+            <code>ws_fallback</code>.</p>
+
+        <h2 id="static-methods">🌐 Статические методы класса Pollyx</h2>
+
+        <div class="method-signature">Pollyx.registerHandler(name: string, handler: GlobalHandler): void</div>
+        <p>Регистрирует глобальный обработчик для всех инстансов. Будет вызван для любого элемента с <code>data-pollyx-handler="{name}"</code>
+            в любом инстансе.</p>
+
+        <div class="method-signature">Pollyx.unregisterHandler(name: string): boolean</div>
+        <p>Удаляет глобальный обработчик.</p>
+
+        <div class="method-signature">Pollyx.getAllInstances(): PollyxInstance[]</div>
+        <p>Возвращает массив всех созданных инстансов.</p>
+
+        <div class="method-signature">Pollyx.startAll(): void</div>
+        <p>Запускает все остановленные инстансы.</p>
+
+        <div class="method-signature">Pollyx.stopAll(): void</div>
+        <p>Останавливает все активные инстансы.</p>
+
+        <div class="method-signature">Pollyx.destroyAll(): void</div>
+        <p>Уничтожает все инстансы и очищает реестр.</p>
+
+        <div class="method-signature">Pollyx.setDefaultOptions(options: Partial&lt;PollyxOptions&gt;): void</div>
+        <p>Устанавливает опции по умолчанию для всех новых инстансов.</p>
+
+        <h2 id="retry-strategy">🔄 Класс RetryStrategy</h2>
+        <p>Используется внутренне, но также доступен для прямого использования.</p>
+
+        <div class="method-signature">new RetryStrategy(options: RetryOptions)</div>
+
+        <h4>Методы RetryStrategy</h4>
+        <table class="param-table">
+            <thead>
+            <tr>
+                <th>Метод</th>
+                <th>Возвращает</th>
+                <th>Описание</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>shouldRetry(attempt: number, error?: Error)</td>
+                <td>boolean</td>
+                <td>Проверяет, нужно ли повторить попытку</td>
+            </tr>
+            <tr>
+                <td>getDelayForAttempt(attempt: number)</td>
+                <td>number</td>
+                <td>Возвращает задержку (мс) для указанной попытки</td>
+            </tr>
+            <tr>
+                <td>getState()</td>
+                <td>RetryState</td>
+                <td>Возвращает текущее состояние</td>
+            </tr>
+            <tr>
+                <td>reset()</td>
+                <td>void</td>
+                <td>Полный сброс (attempt = 0, lastError = null)</td>
+            </tr>
+            <tr>
+                <td>resetAttempts()</td>
+                <td>void</td>
+                <td>Сброс счётчика попыток, но сохранение startTime</td>
+            </tr>
+            <tr>
+                <td>isReset()</td>
+                <td>boolean</td>
+                <td>Проверяет, был ли сброс после последней ошибки</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <pre><code>interface RetryState {
+    attempt: number;              // текущая попытка (0 - первая)
+    lastAttempt: number | null;   // timestamp последней попытки
+    lastError: Error | null;      // последняя ошибка
+    lastDelay: number | null;     // последняя использованная задержка
+    exceededMaxAttempts: boolean; // превышен лимит попыток
+    aborted: boolean;             // была ли принудительная остановка
+    startTime: number;            // время создания стратегии
+}</code></pre>
+
+        <h2 id="events">📡 Система событий</h2>
+        <p>Каждый инстанс генерирует события на своём DOM-элементе. Слушать можно через <code>addEventListener</code>.
+        </p>
+
+        <div class="method-signature">element.addEventListener('pollyx:status', handler)</div>
+
+        <h4>Объект события</h4>
+        <pre><code>interface PollyxStatusEvent extends CustomEvent {
+    detail: {
+        status: StatusType;
+        instance: PollyxInstance;
+        timestamp: number;
+        data?: any;
+    }
+}</code></pre>
+
+        <h4>Типы статусов и их data</h4>
+        <table class="param-table">
+            <thead>
+            <tr>
+                <th>Статус</th>
+                <th>Структура data</th>
+                <th>Описание</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>'started'</td>
+                <td><code>undefined</code></td>
+                <td>Поллинг запущен</td>
+            </tr>
+            <tr>
+                <td>'stopped'</td>
+                <td><code>undefined</code></td>
+                <td>Поллинг остановлен</td>
+            </tr>
+            <tr>
+                <td>'fetching'</td>
+                <td><code>{ fetchId: string }</code></td>
+                <td>Начат запрос</td>
+            </tr>
+            <tr>
+                <td>'success'</td>
+                <td><code>{ response: string, fetchId: string }</code></td>
+                <td>Запрос успешен</td>
+            </tr>
+            <tr>
+                <td>'error'</td>
+                <td><code>{ error: Error, fetchId?: string }</code></td>
+                <td>Ошибка запроса</td>
+            </tr>
+            <tr>
+                <td>'retrying'</td>
+                <td><code>{ attempt: number, delay: number, error: Error }</code></td>
+                <td>Повторная попытка</td>
+            </tr>
+            <tr>
+                <td>'diff_applied'</td>
+                <td><code>{ patchesCount: number, failedPatches: number, time: number }</code></td>
+                <td>Применён diff</td>
+            </tr>
+            <tr>
+                <td>'handler_registered'</td>
+                <td><code>{ name: string }</code></td>
+                <td>Зарегистрирован глобальный обработчик</td>
+            </tr>
+            <tr>
+                <td>'ws_connected'</td>
+                <td><code>undefined</code></td>
+                <td>WebSocket подключён</td>
+            </tr>
+            <tr>
+                <td>'ws_disconnected'</td>
+                <td><code>{ code?: number, reason?: string }</code></td>
+                <td>WebSocket отключён</td>
+            </tr>
+            <tr>
+                <td>'ws_error'</td>
+                <td><code>{ error: Event }</code></td>
+                <td>Ошибка WebSocket</td>
+            </tr>
+            <tr>
+                <td>'ws_fallback'</td>
+                <td><code>{ reason?: string }</code></td>
+                <td>Переключение на polling</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <h2 id="handlers">🎯 Глобальные обработчики (data-pollyx)</h2>
+        <p>Позволяют выполнять произвольный код при обновлении конкретных элементов внутри контейнера.</p>
+
+        <h4>HTML-разметка</h4>
+        <pre><code>&lt;div data-pollyx&gt;
+    &lt;!-- Обычное содержимое --&gt;
+    &lt;div data-pollyx-handler="highlight"&gt;
+        Этот элемент будет обработан специальным обработчиком
+    &lt;/div&gt;
+
+    &lt;div data-pollyx-handler="logger" data-pollyx-param="user-123"&gt;
+        Можно добавлять любые data-атрибуты
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+        <h4>Регистрация обработчика</h4>
+        <pre><code>// Глобальный (для всех инстансов)
+Pollyx.registerHandler('highlight', (newHtml, oldHtml, instance, diff) => {
+    console.log('Изменения для элемента:', instance.element);
+    // diff доступен только если options.diffUpdates = true
+});
+
+// Локальный (только для конкретного инстанса)
+polling.registerHandler('logger', (newHtml, oldHtml, instance) => {
+    console.log('Получен новый HTML для логгера');
+});</code></pre>
+
+        <div class="note">
+            <strong>Важно:</strong> Обработчики вызываются <em>после</em> обновления DOM. Если вам нужно выполнить код
+            до обновления, используйте событие <code>fetching</code>.
+        </div>
+
+        <h2 id="adapters">⚛️ Адаптеры для фреймворков</h2>
+
+        <h3>React (usePolling)</h3>
+        <div class="method-signature">usePolling(options: UsePollingOptions): UsePollingResult</div>
+
+        <h4>Параметры usePolling</h4>
+        <table class="param-table">
+            <thead>
+            <tr>
+                <th>Поле</th>
+                <th>Тип</th>
+                <th>Описание</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>url</td>
+                <td>string</td>
+                <td>URL для запросов</td>
+            </tr>
+            <tr>
+                <td>interval</td>
+                <td>number</td>
+                <td>Интервал (мс)</td>
+            </tr>
+            <tr>
+                <td>method?</td>
+                <td>string</td>
+                <td>HTTP метод</td>
+            </tr>
+            <tr>
+                <td>headers?</td>
+                <td>Record&lt;string, string&gt;</td>
+                <td>Заголовки</td>
+            </tr>
+            <tr>
+                <td>body?</td>
+                <td>any</td>
+                <td>Тело запроса</td>
+            </tr>
+            <tr>
+                <td>retry?</td>
+                <td>RetryOptions</td>
+                <td>Настройки повторов</td>
+            </tr>
+            <tr>
+                <td>websocket?</td>
+                <td>WebSocketOptions</td>
+                <td>Настройки WebSocket</td>
+            </tr>
+            <tr>
+                <td>diffUpdates?</td>
+                <td>boolean</td>
+                <td>Использовать diff</td>
+            </tr>
+            <tr>
+                <td>autoStart?</td>
+                <td>boolean</td>
+                <td>Автостарт</td>
+            </tr>
+            <tr>
+                <td>onUpdate?</td>
+                <td>(html: string) => void</td>
+                <td>Колбэк обновления</td>
+            </tr>
+            <tr>
+                <td>onError?</td>
+                <td>(error: Error) => void</td>
+                <td>Колбэк ошибки</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <h4>Возвращаемое значение</h4>
+        <pre><code>interface UsePollingResult {
+    data: string | null;           // последние полученные данные
+    isFetching: boolean;            // выполняется ли запрос
+    error: Error | null;            // ошибка (если есть)
+    refetch: () => Promise&lt;string&gt;; // принудительный запрос
+    status: StatusType;             // текущий статус
+    start: () => void;              // запустить поллинг
+    stop: () => void;               // остановить
+}</code></pre>
+
+        <h3>Vue 3 (usePollingVue)</h3>
+        <div class="method-signature">usePollingVue(options: UsePollingOptions): UsePollingVueResult</div>
+        <p>Возвращает те же поля, что и React-версия, но в виде ref-объектов (для реактивности Vue).</p>
+
+        <h2 id="cdn">🌐 Подключение через CDN (правильный пример)</h2>
+        <p>Важно! Для работы diff-обновлений необходимо подключать <code>diff_match_patch</code> до библиотеки Pollyx.
+        </p>
+
+        <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;!-- Сначала подключаем diff-match-patch (обязательно для diffUpdates) --&gt;
+    &lt;script src="https://cdnjs.cloudflare.com/ajax/libs/diff_match_patch/20121119/diff_match_patch.js"&gt;&lt;/script&gt;
+
+    &lt;!-- Затем подключаем саму библиотеку Pollyx --&gt;
+    &lt;script src="https://unpkg.com/pollyx@1.0.4/dist/pollyx.umd.js"&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div id="app"&gt;
+        &lt;div id="content"&gt;Загрузка...&lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;script&gt;
+        // Pollyx доступен глобально как window.Pollyx
+        const { Pollyx } = window.Pollyx;
+
+        const container = document.getElementById('app');
+        const polling = new Pollyx(container, {
+            url: '/api/updates',
+            interval: 5000,
+            diffUpdates: true,      // будет работать благодаря diff_match_patch
+            onUpdate: (html) => {
+                console.log('Обновлено!', html);
+            }
+        });
+
+        // polling.start() вызывается автоматически (autoStart: true)
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+    </div>
+</div>
+</body>
+</html>
